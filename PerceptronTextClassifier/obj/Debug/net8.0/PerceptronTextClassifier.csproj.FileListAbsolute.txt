@@ -1,0 +1,28 @@
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/bin/Debug/net8.0/PerceptronTextClassifier
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/bin/Debug/net8.0/PerceptronTextClassifier.deps.json
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/bin/Debug/net8.0/PerceptronTextClassifier.runtimeconfig.json
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/bin/Debug/net8.0/PerceptronTextClassifier.dll
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/bin/Debug/net8.0/PerceptronTextClassifier.pdb
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfoInputs.cache
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfo.cs
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.csproj.CoreCompileInputs.cache
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.dll
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/obj/Debug/net8.0/refint/PerceptronTextClassifier.dll
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.pdb
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.genruntimeconfig.cache
+/Users/alexandruzamfir/Desktop/Proiecte/Programare Mobila/Lab 1/PerceptronTextClassifier/PerceptronTextClassifier/obj/Debug/net8.0/ref/PerceptronTextClassifier.dll
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\bin\Debug\net8.0\PerceptronTextClassifier.exe
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\bin\Debug\net8.0\PerceptronTextClassifier.deps.json
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\bin\Debug\net8.0\PerceptronTextClassifier.runtimeconfig.json
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\bin\Debug\net8.0\PerceptronTextClassifier.dll
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\bin\Debug\net8.0\PerceptronTextClassifier.pdb
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\obj\Debug\net8.0\PerceptronTextClassifier.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\obj\Debug\net8.0\PerceptronTextClassifier.AssemblyInfoInputs.cache
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\obj\Debug\net8.0\PerceptronTextClassifier.AssemblyInfo.cs
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\obj\Debug\net8.0\PerceptronTextClassifier.csproj.CoreCompileInputs.cache
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\obj\Debug\net8.0\PerceptronTextClassifier.dll
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\obj\Debug\net8.0\refint\PerceptronTextClassifier.dll
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\obj\Debug\net8.0\PerceptronTextClassifier.pdb
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\obj\Debug\net8.0\PerceptronTextClassifier.genruntimeconfig.cache
+C:\Users\mobx3\Desktop\Projects\PerceptronTextClassifier\PerceptronTextClassifier\obj\Debug\net8.0\ref\PerceptronTextClassifier.dll
