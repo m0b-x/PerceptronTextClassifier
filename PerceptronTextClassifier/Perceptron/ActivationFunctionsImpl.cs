@@ -1,6 +1,6 @@
 namespace PerceptronTextClassifier;
 
-public static class ActivationFunctions
+public static class ActivationFunctionsImpl
 {
     //Binary activation function -unipolar
     public static int StepFunction(double x, double threshold)

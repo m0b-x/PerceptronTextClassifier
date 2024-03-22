@@ -22,7 +22,7 @@ class Program
         /////////////////
         //Print Documents
         /////////////////
-        List<SingleLayerPerceptron> neurons = new List<SingleLayerPerceptron>();
+        List<SingleLayerPerceptron> perceptrons = new List<SingleLayerPerceptron>();
         
         
     }

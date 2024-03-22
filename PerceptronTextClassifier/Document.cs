@@ -9,14 +9,19 @@ namespace PerceptronTextClassifier
         private string _topic;
         private BitArray _topicEncoding;
         private StringBuilder _topicEncodingString;
-        
+        private int _topicEncodingInt;
         private List<IndexFrequencyPair> _indexFrequencyPairs;
+        private bool []_attributePresence;
 
-        public Document(int id, string topic, List<IndexFrequencyPair> indexFrequencyPairs)
+        public Document(int id, string topic, int numAttributes, List<IndexFrequencyPair> indexFrequencyPairs)
         {
             _id = id;
             _topic = topic;
             _indexFrequencyPairs = indexFrequencyPairs;
+            
+            //Add normalization data layer
+            _attributePresence = new bool[numAttributes];
+            
         }
 
         public int Id
@@ -35,7 +40,8 @@ namespace PerceptronTextClassifier
         {
             get { return _topicEncoding; }
             set { _topicEncoding = value;
-                _topicEncodingString = BitArrayToStringBuilder(_topicEncoding);
+                _topicEncodingString = PerceptronUtility.BitArrayToStringBuilder(_topicEncoding);
+                _topicEncodingInt = PerceptronUtility.BitArrayToInteger(_topicEncoding);
             }
         }
         
@@ -43,25 +49,22 @@ namespace PerceptronTextClassifier
         {
             get { return _topicEncodingString; }
         }
+        
+        public int TopicEncodingInt
+        {
+            get { return _topicEncodingInt; }
+        }
+
 
         public List<IndexFrequencyPair> IndexFrequencyPairs
         {
             get { return _indexFrequencyPairs; }
             set { _indexFrequencyPairs = value; }
         }
-        
-        
-        public static StringBuilder BitArrayToStringBuilder(BitArray bitArray)
-        {
-            if (bitArray == null)
-                throw new ArgumentNullException(nameof(bitArray));
 
-            StringBuilder stringBuilder = new StringBuilder(bitArray.Length);
-            for (int i = 0; i < bitArray.Length; i++)
-            {
-                stringBuilder.Append(bitArray[i] ? '1' : '0');
-            }
-            return stringBuilder;
+        public bool[] AttributePresenceArray
+        {
+            get { return _attributePresence; }
         }
     }
 }

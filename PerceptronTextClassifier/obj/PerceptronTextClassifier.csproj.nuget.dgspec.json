@@ -1,27 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mobx3\\Desktop\\Projects\\PerceptronTextClassifier\\PerceptronTextClassifier\\PerceptronTextClassifier.csproj": {}
+    "/Users/alexandruzamfir/Desktop/Proiecte/SLP_Classifier/PerceptronTextClassifier/PerceptronTextClassifier/PerceptronTextClassifier.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mobx3\\Desktop\\Projects\\PerceptronTextClassifier\\PerceptronTextClassifier\\PerceptronTextClassifier.csproj": {
+    "/Users/alexandruzamfir/Desktop/Proiecte/SLP_Classifier/PerceptronTextClassifier/PerceptronTextClassifier/PerceptronTextClassifier.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mobx3\\Desktop\\Projects\\PerceptronTextClassifier\\PerceptronTextClassifier\\PerceptronTextClassifier.csproj",
+        "projectUniqueName": "/Users/alexandruzamfir/Desktop/Proiecte/SLP_Classifier/PerceptronTextClassifier/PerceptronTextClassifier/PerceptronTextClassifier.csproj",
         "projectName": "PerceptronTextClassifier",
-        "projectPath": "C:\\Users\\mobx3\\Desktop\\Projects\\PerceptronTextClassifier\\PerceptronTextClassifier\\PerceptronTextClassifier.csproj",
-        "packagesPath": "C:\\Users\\mobx3\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mobx3\\Desktop\\Projects\\PerceptronTextClassifier\\PerceptronTextClassifier\\obj\\",
+        "projectPath": "/Users/alexandruzamfir/Desktop/Proiecte/SLP_Classifier/PerceptronTextClassifier/PerceptronTextClassifier/PerceptronTextClassifier.csproj",
+        "packagesPath": "/Users/alexandruzamfir/.nuget/packages/",
+        "outputPath": "/Users/alexandruzamfir/Desktop/Proiecte/SLP_Classifier/PerceptronTextClassifier/PerceptronTextClassifier/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mobx3\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/alexandruzamfir/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -34,11 +33,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -60,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

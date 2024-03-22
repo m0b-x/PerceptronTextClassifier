@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "g660wR/Lz4yI0tdnRyWcIBi2CTRR8rDnGq4ZuYMpwczPUOQucPxnpGzmVtZMhyGXPbwQpm4CAmHmMcTVEReDqg==",
+  "dgSpecHash": "meCa6unwRnxNHc3dUaP2DAlmsLMnTaHgq41FTjP7UF1t3ZUUP6E79mDwn33CnnICpfm7JxrmV84Y5Xqp0X4GCA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mobx3\\Desktop\\Projects\\PerceptronTextClassifier\\PerceptronTextClassifier\\PerceptronTextClassifier.csproj",
+  "projectFilePath": "/Users/alexandruzamfir/Desktop/Proiecte/SLP_Classifier/PerceptronTextClassifier/PerceptronTextClassifier/PerceptronTextClassifier.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

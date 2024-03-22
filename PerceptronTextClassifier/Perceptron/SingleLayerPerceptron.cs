@@ -1,27 +1,68 @@
+using System.Collections;
+using System.Text;
+
 namespace PerceptronTextClassifier;
 
 public class SingleLayerPerceptron
 {
-    private int _inputSize;
+    //dynamic input size
+    
     private double[] _weights;
+    
     private double _bias;
+    
     private double _learningRate;
     
+    private double _treshold = 0.0;
+    
+    private string _topic;
+    private BitArray _topicEncoding;
+    private StringBuilder _topicEncodingString;
+    private int _topicEncodingInt;
+    
+    public double Treshold
+    {
+        get { return _treshold; }
+        set { _treshold = value; }
+    }
+    
+    public string Topic
+    {
+        get { return _topic; }
+        set { _topic = value; }
+    }
+        
+    public BitArray TopicEncoding
+    {
+        get { return _topicEncoding; }
+        set { _topicEncoding = value;
+            _topicEncodingString = PerceptronUtility.BitArrayToStringBuilder(_topicEncoding);
+            _topicEncodingInt = PerceptronUtility.BitArrayToInteger(_topicEncoding);
+        }
+    }
+        
+    public StringBuilder TopicEncodingString
+    {
+        get { return _topicEncodingString; }
+    }
+    
+    public int TopicEncodingInt
+    {
+        get { return _topicEncodingInt; }
+    }
 
     public SingleLayerPerceptron(int inputSize, double learningRate)
     {
-        this._inputSize = inputSize;
         this._learningRate = learningRate;
 
         _weights = new double[inputSize];
-        InitializeWeights(inputSize);
         _bias = 0;
     }
-
-    private void InitializeWeights(int inputSize)
+    //Initialize Weights Between -1/inputSize and 1/inputSize
+    private void InitializeWeights()
     {
         Random rand = new Random();
-        double range = 1.0 / inputSize;
+        double range = 1.0 / _weights.Length;
 
         for (int i = 0; i < _weights.Length; i++)
         {
@@ -29,48 +70,87 @@ public class SingleLayerPerceptron
         }
     }
 
-    private int Activate(double sum)
+    //expectedOutcome should be either -1 or 1
+    public void TrainWithDocument(Document document, int expectedOutcome)
     {
-        return sum >= 0 ? 1 : 0; 
-    }
-
-    public int Predict(double[] inputs)
-    {
-        if (inputs.Length != _inputSize)
+        if (_weights == null)
         {
-            throw new ArgumentException("Input size mismatch");
+            throw new ArgumentNullException(nameof(_weights), "Weight array is not initialized.");
         }
+        
+        bool outcomesMatch = false;
+        
+        NormalizationTypes normalization = NormalizationTypes.With0And1;
+        
+        int[] presenceArray =
+            PerceptronUtility.ReturnAttributePresenceArrayInt(document.AttributePresenceArray, normalization);
 
-        double sum = _bias;
-        for (int i = 0; i < _inputSize; i++)
+        //Stopping criterion =  outcomes Match
+        while (!outcomesMatch)
         {
-            sum += inputs[i] * _weights[i];
-        }
+            double sum = 0.0;
 
-        return Activate(sum);
-    }
+            sum = NormalizeAndSum(document, sum, normalization);
 
-    public void Train(double[][] inputSet, int[] labels, int epochs)
-    {
-        if (inputSet.Length != labels.Length)
-        {
-            throw new ArgumentException("Input size mismatch");
-        }
+            double activationResult =
+                PerceptronUtility.ApplyActivationFunction(
+                    sum: sum,
+                    activationType: ActivationFunctions.SignFunction,
+                    threshold: 0.0
+                );
 
-        for (int epoch = 0; epoch < epochs; epoch++)
-        {
-            for (int i = 0; i < inputSet.Length; i++)
+            //Update the weights if the presented output is not what we want
+            if (!activationResult.Equals(expectedOutcome))
             {
-                int prediction = Predict(inputSet[i]);
-                int error = labels[i] - prediction;
-
-                // Update weights and bias
-                for (int j = 0; j < _inputSize; j++)
+                for (int i = 0; i < _weights.Length; ++i)
                 {
-                    _weights[j] += _learningRate * error * inputSet[i][j];
+                    _weights[i] = _weights[i] - _learningRate * (expectedOutcome - sum) * presenceArray[i];
                 }
-                _bias += _learningRate * error;
+            }
+            else
+            {
+                outcomesMatch = true;
             }
         }
+    }
+
+    private double NormalizeAndSum(Document document, double sum, NormalizationTypes normalization)
+    {
+        if (normalization.Equals(NormalizationTypes.With0And1))
+        {
+            foreach (var pair in document.IndexFrequencyPairs)
+            {
+                var index = pair.Index;
+                var frequency = pair.Frequency;
+                
+                sum += _weights[index]; // * frequency;
+            }
+        }
+        else if (normalization.Equals(NormalizationTypes.With1AndNeg1))
+        {
+            HashSet<int> indexes = new HashSet<int>(document.IndexFrequencyPairs.Count);
+            foreach (var pair in document.IndexFrequencyPairs)
+            {
+                var index = pair.Index;
+                var frequency = pair.Frequency;
+                indexes.Add(index);
+                sum += _weights[index];
+            }
+
+            List<int> missingIndexes = new List<int>(_weights.Length);
+            for (var presenceIndex = 0; presenceIndex < _weights.Length; ++presenceIndex)
+            {
+                if (!indexes.Contains(presenceIndex))
+                {
+                    missingIndexes.Add(presenceIndex);
+                }
+            }
+
+            foreach (var missingIndex in missingIndexes)
+            {
+                sum -= _weights[missingIndex];
+            }
+        }
+        return sum;
     }
 }

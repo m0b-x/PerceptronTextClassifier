@@ -108,7 +108,7 @@ public class ArffFileReader
                         var frequency = Int32.Parse(pairInLineDouble[1]);
                         termFrequencyPairList.Add(new IndexFrequencyPair(term, frequency));
                     }
-                    _documents.Add(new Document(documentCounter, firstTopic, termFrequencyPairList));
+                    _documents.Add(new Document(documentCounter, firstTopic, _numAttributes, termFrequencyPairList));
                     documentCounter++;
                 }
             }
