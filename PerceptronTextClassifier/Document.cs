@@ -21,7 +21,10 @@ namespace PerceptronTextClassifier
             
             //Add normalization data layer
             _attributePresence = new bool[numAttributes];
-            
+            foreach (var pair in _indexFrequencyPairs)
+            {
+                _attributePresence[pair.Index] = true;
+            }
         }
 
         public int Id

@@ -27,12 +27,12 @@ public class ArffFileReader
     
     public int NumberOfAttributes
     {
-        get { return _numSamples; }
+        get { return _numAttributes; }
     }
     
     public int NumberOfTopics
     {
-        get { return _numSamples; }
+        get { return _numtopics; }
     }
 
     public List<Document> Documents

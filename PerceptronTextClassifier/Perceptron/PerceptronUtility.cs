@@ -78,6 +78,46 @@ public static class PerceptronUtility
         return null;
     }
     
+    public static void TrainPerceptrons(ArffFileReader trainingReader,
+    SingleLayerPerceptron[] perceptrons, NormalizationTypes normalizationType)
+    {
+        if (normalizationType == NormalizationTypes.With0And1)
+        {
+            foreach (var document in trainingReader.Documents)
+            {
+                for (int i = 0; i < perceptrons.Length; ++i)
+                {
+                    perceptrons[i].TrainWithDocument(document,
+                        perceptrons[i].Topic.Equals(document.Topic) ? 1 : 0,
+                        normalizationType);
+                }
+            }
+        }
+        else if(normalizationType == NormalizationTypes.With1AndNeg1)
+        {
+            for (int i = 0; i < perceptrons.Length; ++i)
+            {
+                foreach (var document in trainingReader.Documents)
+                {
+                    perceptrons[i].TrainWithDocument(document,
+                        perceptrons[i].Topic.Equals(document.Topic) ? 1 : -1,
+                        normalizationType);
+                }
+            }
+        }
+    }
+
+    public static void TestPerceptrons(ArffFileReader testingReader,
+        SingleLayerPerceptron[] perceptrons, NormalizationTypes normalizationType)
+    {
+        for (int i = 0; i < perceptrons.Length; ++i)
+        {
+            foreach (var document in testingReader.Documents)
+            {
+                perceptrons[i].TestWithDocument(document, normalizationType);
+            }
+        }
+    }
     
     public static double ApplyActivationFunction(double sum, ActivationFunctions activationType, double threshold = 0.0, double alpha = 1.0)
     {

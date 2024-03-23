@@ -6,6 +6,7 @@ namespace PerceptronTextClassifier;
 public class SingleLayerPerceptron
 {
     //dynamic input size
+    public static int MaxEpochs = 100;
     
     private double[] _weights;
     
@@ -16,9 +17,6 @@ public class SingleLayerPerceptron
     private double _treshold = 0.0;
     
     private string _topic;
-    private BitArray _topicEncoding;
-    private StringBuilder _topicEncodingString;
-    private int _topicEncodingInt;
     
     public double Treshold
     {
@@ -31,35 +29,17 @@ public class SingleLayerPerceptron
         get { return _topic; }
         set { _topic = value; }
     }
-        
-    public BitArray TopicEncoding
-    {
-        get { return _topicEncoding; }
-        set { _topicEncoding = value;
-            _topicEncodingString = PerceptronUtility.BitArrayToStringBuilder(_topicEncoding);
-            _topicEncodingInt = PerceptronUtility.BitArrayToInteger(_topicEncoding);
-        }
-    }
-        
-    public StringBuilder TopicEncodingString
-    {
-        get { return _topicEncodingString; }
-    }
-    
-    public int TopicEncodingInt
-    {
-        get { return _topicEncodingInt; }
-    }
 
-    public SingleLayerPerceptron(int inputSize, double learningRate)
+    public SingleLayerPerceptron(int inputSize, double learningRate, string topicToLearn)
     {
-        this._learningRate = learningRate;
-
+        _learningRate = learningRate;
         _weights = new double[inputSize];
+        InitializeWeights();
         _bias = 0;
+        _topic = topicToLearn;
     }
     //Initialize Weights Between -1/inputSize and 1/inputSize
-    private void InitializeWeights()
+    public void InitializeWeights()
     {
         Random rand = new Random();
         double range = 1.0 / _weights.Length;
@@ -71,7 +51,7 @@ public class SingleLayerPerceptron
     }
 
     //expectedOutcome should be either -1 or 1
-    public void TrainWithDocument(Document document, int expectedOutcome)
+    public void TrainWithDocument(Document document, int expectedOutcome, NormalizationTypes normalization)
     {
         if (_weights == null)
         {
@@ -79,14 +59,13 @@ public class SingleLayerPerceptron
         }
         
         bool outcomesMatch = false;
-        
-        NormalizationTypes normalization = NormalizationTypes.With0And1;
+        int curentEpoch = 0;
         
         int[] presenceArray =
             PerceptronUtility.ReturnAttributePresenceArrayInt(document.AttributePresenceArray, normalization);
 
         //Stopping criterion =  outcomes Match
-        while (!outcomesMatch)
+        while (!outcomesMatch && curentEpoch < MaxEpochs)
         {
             double sum = 0.0;
 
@@ -104,14 +83,69 @@ public class SingleLayerPerceptron
             {
                 for (int i = 0; i < _weights.Length; ++i)
                 {
-                    _weights[i] = _weights[i] - _learningRate * (expectedOutcome - sum) * presenceArray[i];
+                    _weights[i] = _weights[i] - _learningRate * (expectedOutcome - activationResult) * presenceArray[i];
                 }
             }
             else
             {
                 outcomesMatch = true;
             }
+
+            curentEpoch++;
         }
+    }
+    public bool TestWithDocument(Document document, NormalizationTypes normalization)
+    {
+        if (_weights == null)
+        {
+            throw new ArgumentNullException(nameof(_weights), "Weight array is not initialized.");
+        }
+        
+        double sum = 0.0;
+
+        sum = NormalizeAndSum(document, sum, normalization);
+
+        double activationResult =
+            PerceptronUtility.ApplyActivationFunction(
+                sum: sum,
+                activationType: ActivationFunctions.SignFunction,
+                threshold: 0.0
+                );
+        
+        Console.WriteLine($"Sum: {sum}, activationResult:{activationResult}");
+        
+        // Correctly predicts that the document is part of class
+        if (activationResult > 0 && _topic.Equals(document.Topic))
+        {
+            // Increment TP
+            // Increment TN for all other classes
+            return true;
+        }
+
+        // Correctly predicts that the document is not part of class
+        if (activationResult <= 0 && !_topic.Equals(document.Topic))
+        {
+            // Increment TN
+            return true;
+        }
+
+        // Incorrectly predicts that the document is part of class (it is not)
+        if (activationResult > 0 && !_topic.Equals(document.Topic))
+        {
+            // Increment FP
+            return true;
+        }
+
+        // Incorrectly predicts that the document is not part of class (it is)
+        if (activationResult <= 0 && _topic.Equals(document.Topic))
+        {
+            // Increment FN
+            return true;
+        }
+
+
+
+        return false;
     }
 
     private double NormalizeAndSum(Document document, double sum, NormalizationTypes normalization)
@@ -123,7 +157,7 @@ public class SingleLayerPerceptron
                 var index = pair.Index;
                 var frequency = pair.Frequency;
                 
-                sum += _weights[index]; // * frequency;
+                sum += _weights[index];
             }
         }
         else if (normalization.Equals(NormalizationTypes.With1AndNeg1))

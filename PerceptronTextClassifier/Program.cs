@@ -11,19 +11,43 @@ class Program
         var testingFilePath = Path.Combine(slnDirectory, "Data/MultiClass_Testing_SVM_100.0.arff");
         
         ArffFileReader trainingReader =  new ArffFileReader(trainingFilePath);
+        ArffFileReader testingReader =  new ArffFileReader(testingFilePath);
         
-        var topicEncoding = PerceptronUtility.ComputeTopicEncoding(trainingReader.TopicList);
+        var topicEncodings = PerceptronUtility.ComputeTopicEncoding(trainingReader.TopicList);
         
         foreach (var document in trainingReader.Documents)
         {
-            document.TopicEncoding = topicEncoding[document.Topic];
+            document.TopicEncoding = topicEncodings[document.Topic];
         }
         
-        /////////////////
-        //Print Documents
-        /////////////////
-        List<SingleLayerPerceptron> perceptrons = new List<SingleLayerPerceptron>();
-        
-        
+        ///////////////////
+        //Train Perceptrons
+        ///////////////////
+        SingleLayerPerceptron[] perceptrons =
+            new SingleLayerPerceptron[topicEncodings.Keys.Count];
+
+        int perceptronCt = 0;
+        Dictionary<string, int> trainingDataIndexDictionary = new(topicEncodings.Keys.Count);
+        foreach (var topic in topicEncodings.Keys)
+        {
+            var perceptron = new SingleLayerPerceptron(
+                trainingReader.NumberOfAttributes,
+                learningRate: 0.1,
+                topic);
+            perceptrons[perceptronCt] = perceptron;
+            
+            trainingDataIndexDictionary[topic] = perceptronCt;
+            perceptronCt++;
+        }
+        //Training
+        PerceptronUtility.TrainPerceptrons(
+            trainingReader: trainingReader,
+            perceptrons: perceptrons,
+            normalizationType: NormalizationTypes.With1AndNeg1);
+        //Testing
+        PerceptronUtility.TestPerceptrons(
+            testingReader: testingReader,
+            perceptrons: perceptrons,
+            normalizationType: NormalizationTypes.With1AndNeg1);
     }
 }

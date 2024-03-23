@@ -8,13 +8,15 @@ public class Evaluator
     public int TrueNegative { get; set; }
     public int FalsePositive { get; set; }
     public int FalseNegative { get; set; }
+    public int NumberOfClasses { get; set; }
 
-    public void ResetMetrics()
+    public void InitialiseMetrics(int numberOfClases)
     {
         TruePositive = 0;
         TrueNegative = 0;
         FalsePositive = 0;
         FalseNegative = 0;
+        NumberOfClasses = numberOfClases;
     }
 
     public double ComputeAccuracy()

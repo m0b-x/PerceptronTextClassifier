@@ -8,43 +8,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa070ee2-2620-4fe2-998f-4ba719f5aff7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Evaluator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/ActivationFunctions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/NormalizationTypes.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PerceptronTextClassifier/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PerceptronTextClassifier/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/ActivationFunctions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/ActivationFunctionsImpl.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/ArffFileReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/ArffFileReader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Document.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Document.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Evaluator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Evaluator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/PerceptronUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/PerceptronUtility.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/SingleLayerPerceptron.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/SingleLayerPerceptron.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.genruntimeconfig.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/apphost" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/apphost" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/ref/PerceptronTextClassifier.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/ref/PerceptronTextClassifier.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/refint/PerceptronTextClassifier.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/refint/PerceptronTextClassifier.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/PerceptronTextClassifier.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/PerceptronTextClassifier.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/PerceptronTextClassifier.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/PerceptronTextClassifier.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6944caef51964961b37f49507d2b53dfd82000/6f/f8619b87/NullReferenceException.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -114,12 +104,26 @@
       <workItem from="1710954177236" duration="383000" />
       <workItem from="1711021546360" duration="3849000" />
       <workItem from="1711039005204" duration="5956000" />
+      <workItem from="1711098990398" duration="61000" />
+      <workItem from="1711135662815" duration="5383000" />
+      <workItem from="1711180316154" duration="3360000" />
+      <workItem from="1711183966606" duration="921000" />
     </task>
+    <task id="LOCAL-00001" summary="Added Normalization, Stop Condition, Enums, summing function by normalization, presence layer to classes">
+      <option name="closed" value="true" />
+      <created>1711099045563</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1711099045563</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -133,5 +137,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Added Normalization, Stop Condition, Enums, summing function by normalization, presence layer to classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Normalization, Stop Condition, Enums, summing function by normalization, presence layer to classes" />
   </component>
 </project>
