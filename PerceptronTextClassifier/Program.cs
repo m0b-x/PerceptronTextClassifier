@@ -1,9 +1,14 @@
-﻿namespace PerceptronTextClassifier;
+﻿using System.Diagnostics;
+
+namespace PerceptronTextClassifier;
 
 class Program
 {
     static void Main(string[] args)
     {
+        Stopwatch stopwatch = new();
+        stopwatch.Start();
+        
         string workingDirectory = Environment.CurrentDirectory;
         string slnDirectory = Directory.GetParent(workingDirectory)!.Parent!.Parent!.FullName;
 
@@ -39,15 +44,24 @@ class Program
             trainingDataIndexDictionary[topic] = perceptronCt;
             perceptronCt++;
         }
+        
         //Training
         PerceptronUtility.TrainPerceptrons(
             trainingReader: trainingReader,
             perceptrons: perceptrons,
-            normalizationType: NormalizationTypes.With1AndNeg1);
+            normalizationType: GlobalSettings.NormalizationType);
+        
         //Testing
         PerceptronUtility.TestPerceptrons(
             testingReader: testingReader,
             perceptrons: perceptrons,
-            normalizationType: NormalizationTypes.With1AndNeg1);
+            normalizationType: GlobalSettings.NormalizationType);
+        Console.WriteLine("Perceptrons tested.");
+        
+        //Print Metrics
+        GlobalEvaluator.PrintEvaluationMetrics();
+        
+        stopwatch.Stop();
+        Console.WriteLine($"Stopwatch Time: {stopwatch.Elapsed}");
     }
 }

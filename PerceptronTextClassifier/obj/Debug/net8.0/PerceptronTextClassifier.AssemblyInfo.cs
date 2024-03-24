@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PerceptronTextClassifier")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c8e1fe8b3c78bf3b03e8140a2b032696ff63b945")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dfb58e79dd00750b1df5c3516a250de2df69475d")]
 [assembly: System.Reflection.AssemblyProductAttribute("PerceptronTextClassifier")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PerceptronTextClassifier")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

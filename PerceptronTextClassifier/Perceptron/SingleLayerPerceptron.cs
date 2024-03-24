@@ -6,7 +6,7 @@ namespace PerceptronTextClassifier;
 public class SingleLayerPerceptron
 {
     //dynamic input size
-    public static int MaxEpochs = 100;
+    private int _maxEpochs;
     
     private double[] _weights;
     
@@ -37,6 +37,7 @@ public class SingleLayerPerceptron
         InitializeWeights();
         _bias = 0;
         _topic = topicToLearn;
+        _maxEpochs = GlobalSettings.MaxPerceptronEpochs;
     }
     //Initialize Weights Between -1/inputSize and 1/inputSize
     public void InitializeWeights()
@@ -53,137 +54,85 @@ public class SingleLayerPerceptron
     //expectedOutcome should be either -1 or 1
     public void TrainWithDocument(Document document, int expectedOutcome, NormalizationTypes normalization)
     {
-        if (_weights == null)
-        {
-            throw new ArgumentNullException(nameof(_weights), "Weight array is not initialized.");
-        }
-        
         bool outcomesMatch = false;
         int curentEpoch = 0;
         
-        int[] presenceArray =
-            PerceptronUtility.ReturnAttributePresenceArrayInt(document.AttributePresenceArray, normalization);
-
         //Stopping criterion =  outcomes Match
-        while (!outcomesMatch && curentEpoch < MaxEpochs)
+        while (!outcomesMatch && curentEpoch < _maxEpochs)
         {
-            double sum = 0.0;
+            double sum = _bias;
 
-            sum = NormalizeAndSum(document, sum, normalization);
+            sum = ApplySummingFunction(document, sum);
 
             double activationResult =
-                PerceptronUtility.ApplyActivationFunction(
-                    sum: sum,
-                    activationType: ActivationFunctions.SignFunction,
-                    threshold: 0.0
-                );
+                ActivationFunctionsImpl.SignFunction(sum);
 
             //Update the weights if the presented output is not what we want
             if (!activationResult.Equals(expectedOutcome))
             {
+                double differenceBetweenOutcomes = _learningRate* (expectedOutcome - activationResult);
                 for (int i = 0; i < _weights.Length; ++i)
                 {
-                    _weights[i] = _weights[i] - _learningRate * (expectedOutcome - activationResult) * presenceArray[i];
+                    //Original formula
+                    //_weights[i] = _weights[i] - _learningRate * (expectedOutcome - activationResult) * document.NormalisedAttributePresence[i];
+                    
+                    _weights[i] = _weights[i] - differenceBetweenOutcomes * document.NormalisedAttributePresence[i];
                 }
             }
             else
             {
                 outcomesMatch = true;
+                break;
             }
 
             curentEpoch++;
         }
     }
-    public bool TestWithDocument(Document document, NormalizationTypes normalization)
+    public void TestWithDocument(Document document)
     {
-        if (_weights == null)
-        {
-            throw new ArgumentNullException(nameof(_weights), "Weight array is not initialized.");
-        }
-        
-        double sum = 0.0;
+        double sum = _bias;
 
-        sum = NormalizeAndSum(document, sum, normalization);
+        sum = ApplySummingFunction(document, sum);
 
         double activationResult =
-            PerceptronUtility.ApplyActivationFunction(
-                sum: sum,
-                activationType: ActivationFunctions.SignFunction,
-                threshold: 0.0
-                );
+            ActivationFunctionsImpl.SignFunction(sum);
         
-        Console.WriteLine($"Sum: {sum}, activationResult:{activationResult}");
-        
-        // Correctly predicts that the document is part of class
-        if (activationResult > 0 && _topic.Equals(document.Topic))
+        //Compare encoding since string comparison is slower
+        bool isTopicMatch = _topic.Equals(document.Topic);
+
+        if (activationResult > 0)
         {
-            // Increment TP
-            // Increment TN for all other classes
-            return true;
+            //Correctly predicts that the documentis part of class
+            if (isTopicMatch)
+            {
+                GlobalEvaluator.TruePositive++;
+            }
+            //Incorrectly predicts that the documentis part of class (it is not)
+            else
+            {
+                GlobalEvaluator.FalsePositive++;
+            }
         }
-
-        // Correctly predicts that the document is not part of class
-        if (activationResult <= 0 && !_topic.Equals(document.Topic))
+        else
         {
-            // Increment TN
-            return true;
+            // Incorrectly predicts that the document is part of class (it is)
+            if (isTopicMatch)
+            {
+                GlobalEvaluator.FalseNegative++;
+            }
+            // Correctly predicts that the document is not part of class
+            else
+            {
+                GlobalEvaluator.TrueNegative++;
+            }
         }
-
-        // Incorrectly predicts that the document is part of class (it is not)
-        if (activationResult > 0 && !_topic.Equals(document.Topic))
-        {
-            // Increment FP
-            return true;
-        }
-
-        // Incorrectly predicts that the document is not part of class (it is)
-        if (activationResult <= 0 && _topic.Equals(document.Topic))
-        {
-            // Increment FN
-            return true;
-        }
-
-
-
-        return false;
     }
 
-    private double NormalizeAndSum(Document document, double sum, NormalizationTypes normalization)
+    private double ApplySummingFunction(Document document, double sum)
     {
-        if (normalization.Equals(NormalizationTypes.With0And1))
+        for (int i = 0; i < document.NormalisedAttributePresence.Length; ++i)
         {
-            foreach (var pair in document.IndexFrequencyPairs)
-            {
-                var index = pair.Index;
-                var frequency = pair.Frequency;
-                
-                sum += _weights[index];
-            }
-        }
-        else if (normalization.Equals(NormalizationTypes.With1AndNeg1))
-        {
-            HashSet<int> indexes = new HashSet<int>(document.IndexFrequencyPairs.Count);
-            foreach (var pair in document.IndexFrequencyPairs)
-            {
-                var index = pair.Index;
-                var frequency = pair.Frequency;
-                indexes.Add(index);
-                sum += _weights[index];
-            }
-
-            List<int> missingIndexes = new List<int>(_weights.Length);
-            for (var presenceIndex = 0; presenceIndex < _weights.Length; ++presenceIndex)
-            {
-                if (!indexes.Contains(presenceIndex))
-                {
-                    missingIndexes.Add(presenceIndex);
-                }
-            }
-
-            foreach (var missingIndex in missingIndexes)
-            {
-                sum -= _weights[missingIndex];
-            }
+            sum += _weights[i] * document.NormalisedAttributePresence[i];
         }
         return sum;
     }

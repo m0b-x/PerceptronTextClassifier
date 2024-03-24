@@ -2,15 +2,15 @@ using System;
 
 namespace PerceptronTextClassifier;
 
-public class Evaluator
+public static class GlobalEvaluator
 {
-    public int TruePositive { get; set; }
-    public int TrueNegative { get; set; }
-    public int FalsePositive { get; set; }
-    public int FalseNegative { get; set; }
-    public int NumberOfClasses { get; set; }
+    public static int TruePositive { get; set; }
+    public static int TrueNegative { get; set; }
+    public static int FalsePositive { get; set; }
+    public static int FalseNegative { get; set; }
+    public static int NumberOfClasses { get; set; }
 
-    public void InitialiseMetrics(int numberOfClases)
+    public static void InitialiseMetrics(int numberOfClases)
     {
         TruePositive = 0;
         TrueNegative = 0;
@@ -19,7 +19,7 @@ public class Evaluator
         NumberOfClasses = numberOfClases;
     }
 
-    public double ComputeAccuracy()
+    public static double ComputeAccuracy()
     {
         int total = TruePositive + TrueNegative + FalsePositive + FalseNegative;
         if (total == 0)
@@ -29,7 +29,7 @@ public class Evaluator
         return accuracy;
     }
 
-    public double ComputeRecall()
+    public static  double ComputeRecall()
     {
         int actualPositive = TruePositive + FalseNegative;
         if (actualPositive == 0)
@@ -39,7 +39,7 @@ public class Evaluator
         return recall;
     }
 
-    public double ComputeSpecificity()
+    public static  double ComputeSpecificity()
     {
         int actualNegative = TrueNegative + FalsePositive;
         if (actualNegative == 0)
@@ -49,7 +49,7 @@ public class Evaluator
         return specificity;
     }
 
-    public double ComputePrecision()
+    public static  double ComputePrecision()
     {
         int predictedPositive = TruePositive + FalsePositive;
         if (predictedPositive == 0)
@@ -57,5 +57,14 @@ public class Evaluator
         
         double precision = (double)TruePositive / predictedPositive;
         return precision;
+    }
+
+    public static void PrintEvaluationMetrics()
+    {
+        var accuracy = ComputeAccuracy();
+        var precision = ComputePrecision();
+        var recall = ComputeRecall();
+        var specificity = ComputeSpecificity();
+        Console.WriteLine($"Evaluation Metrics:\n Accuracy:\t{accuracy}\n Precision:\t{precision}\n Recall:\t{recall}\n Specificity:\t{specificity}\n");
     }
 }

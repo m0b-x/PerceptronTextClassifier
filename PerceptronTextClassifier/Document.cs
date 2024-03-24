@@ -6,12 +6,14 @@ namespace PerceptronTextClassifier
     public class Document
     {
         private int _id;
+        
         private string _topic;
         private BitArray _topicEncoding;
         private StringBuilder _topicEncodingString;
         private int _topicEncodingInt;
+        
         private List<IndexFrequencyPair> _indexFrequencyPairs;
-        private bool []_attributePresence;
+        private int[] _normalisedAttributePresence;
 
         public Document(int id, string topic, int numAttributes, List<IndexFrequencyPair> indexFrequencyPairs)
         {
@@ -20,11 +22,32 @@ namespace PerceptronTextClassifier
             _indexFrequencyPairs = indexFrequencyPairs;
             
             //Add normalization data layer
-            _attributePresence = new bool[numAttributes];
+            InitialiseNormalisedPresenceArray(numAttributes);
+        }
+
+        private void InitialiseNormalisedPresenceArray(int numAttributes)
+        {
+            _normalisedAttributePresence = new int[numAttributes];
+            
+            if (GlobalSettings.NormalizationType.Equals(NormalizationTypes.With1AndNeg1))
+            {
+                for (int i = 0; i < numAttributes; ++i)
+                {
+                    _normalisedAttributePresence[i] = -1;
+                }
+            }
+            // no need to to something for 1 and 0 normalisation
+            // since int array values are initialised to 0 by default 
+            
             foreach (var pair in _indexFrequencyPairs)
             {
-                _attributePresence[pair.Index] = true;
+                _normalisedAttributePresence[pair.Index] = 1;
             }
+        }
+
+        public int[] NormalisedAttributePresence
+        {
+            get { return _normalisedAttributePresence; }
         }
 
         public int Id
@@ -65,9 +88,5 @@ namespace PerceptronTextClassifier
             set { _indexFrequencyPairs = value; }
         }
 
-        public bool[] AttributePresenceArray
-        {
-            get { return _attributePresence; }
-        }
     }
 }

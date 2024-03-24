@@ -49,34 +49,6 @@ public static class PerceptronUtility
 
         return integerValue;
     }
-    public static int[] ReturnAttributePresenceArrayInt(bool[] attributePresence, NormalizationTypes type)
-    {
-        if (attributePresence == null)
-        {
-            throw new ArgumentNullException(nameof(attributePresence), "Presence array is not initialized.");
-        }
-            
-        if (type == NormalizationTypes.With0And1)
-        {
-            int[] intArray = new int[attributePresence.Length];
-            for (int i = 0; i < attributePresence.Length; i++)
-            {
-                intArray[i] = attributePresence[i] ? 1 : 0;
-            }
-            return intArray;
-        }
-        else if (type == NormalizationTypes.With1AndNeg1)
-        {
-            int[] intArray = new int[attributePresence.Length];
-            for (int i = 0; i < attributePresence.Length; i++)
-            {
-                intArray[i] = attributePresence[i] ? 1 : -1;
-            }
-            return intArray;
-        }
-
-        return null;
-    }
     
     public static void TrainPerceptrons(ArffFileReader trainingReader,
     SingleLayerPerceptron[] perceptrons, NormalizationTypes normalizationType)
@@ -114,7 +86,7 @@ public static class PerceptronUtility
         {
             foreach (var document in testingReader.Documents)
             {
-                perceptrons[i].TestWithDocument(document, normalizationType);
+                perceptrons[i].TestWithDocument(document);
             }
         }
     }

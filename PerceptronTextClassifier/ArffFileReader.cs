@@ -4,12 +4,8 @@ namespace PerceptronTextClassifier;
 
 public class ArffFileReader
 {
-    private Dictionary<int, int> _attributeIndexNameDictioanry;
     private List<string> _topicList;
     private List<Document> _documents;
-
-    private const double WeightIfNotFoundDouble = 0.0;
-    private const int WeightIfNotFoundInt = 0;
 
     private int _numSamples;
     private int _numAttributes;
@@ -42,7 +38,6 @@ public class ArffFileReader
     
     public ArffFileReader(string filename)
     {
-        _attributeIndexNameDictioanry = new Dictionary<int, int>();
         _topicList = new List<string>();
         _documents = new List<Document>();
     
@@ -67,7 +62,7 @@ public class ArffFileReader
                 {
                     ReadHeader(line);
                 }
-                else if(line.StartsWith("@attribute"))
+                else if(line.StartsWith("@a"))//@attribute
                 {
                     var lineData = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     int attributeName = Int32.Parse(lineData[1]);
@@ -75,16 +70,15 @@ public class ArffFileReader
                     double attributeIndexDouble = Double.Parse(lineData[2], CultureInfo.InvariantCulture);
                     //subtract 1 to start index at 0
                     int attributeIndex = Convert.ToInt32(attributeIndexDouble) - 1;
-                    _attributeIndexNameDictioanry.Add(attributeIndex, attributeName);
                 }
-                else if(line.StartsWith("@topic"))
+                else if(line.StartsWith("@t"))//@topic
                 {
                     var lineData = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
                     string topicName = lineData[1];
                     //int topicFrequency = Int32.Parse(lineData[2]);
                     _topicList.Add(topicName);
                 }
-                else if(line.StartsWith("@data"))
+                else if(line.StartsWith("@d"))//@data
                 {
                     isDataSection = true;
                 }
