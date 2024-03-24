@@ -8,9 +8,7 @@ namespace PerceptronTextClassifier
         private int _id;
         
         private string _topic;
-        private BitArray _topicEncoding;
-        private StringBuilder _topicEncodingString;
-        private int _topicEncodingInt;
+        private int _topicEncoding;
         
         private List<IndexFrequencyPair> _indexFrequencyPairs;
         private int[] _normalisedAttributePresence;
@@ -61,27 +59,12 @@ namespace PerceptronTextClassifier
             get { return _topic; }
             set { _topic = value; }
         }
-        
-        public BitArray TopicEncoding
+
+        public int TopicEncoding
         {
             get { return _topicEncoding; }
-            set { _topicEncoding = value;
-                _topicEncodingString = PerceptronUtility.BitArrayToStringBuilder(_topicEncoding);
-                _topicEncodingInt = PerceptronUtility.BitArrayToInteger(_topicEncoding);
-            }
+            set { _topicEncoding = value; }
         }
-        
-        public StringBuilder TopicEncodingString
-        {
-            get { return _topicEncodingString; }
-        }
-        
-        public int TopicEncodingInt
-        {
-            get { return _topicEncodingInt; }
-        }
-
-
         public List<IndexFrequencyPair> IndexFrequencyPairs
         {
             get { return _indexFrequencyPairs; }

@@ -5,77 +5,26 @@ namespace PerceptronTextClassifier;
 
 public static class PerceptronUtility
 {
-    public static Dictionary<string, BitArray> TopicEncodingDictionary = new();
-    
-    public static Dictionary<string, BitArray> ComputeTopicEncoding(List<string> topics)
-    {
-        var numberOfBits = topics.Count;
-        int topicCounter = 0;
-        foreach (var topic in topics)
-        {
-            var bitArray = new BitArray(numberOfBits);
-            bitArray[topicCounter] = true;
-            TopicEncodingDictionary.Add(topic, bitArray);
-            topicCounter++;
-        }
-        return TopicEncodingDictionary;
-    }
-    
-        
-    public static StringBuilder BitArrayToStringBuilder(BitArray bitArray)
-    {
-        if (bitArray == null)
-            throw new ArgumentNullException(nameof(bitArray));
-
-        StringBuilder stringBuilder = new StringBuilder(bitArray.Length);
-        for (int i = 0; i < bitArray.Length; i++)
-        {
-            stringBuilder.Append(bitArray[i] ? '1' : '0');
-        }
-        return stringBuilder;
-    }
-        
-    public static int BitArrayToInteger(BitArray bitArray)
-    {
-        int integerValue = 0;
-
-        for (int i = 0; i < bitArray.Length; i++)
-        {
-            if (bitArray.Get(i))
-            {
-                integerValue += (int)Math.Pow(2, i);
-            }
-        }
-
-        return integerValue;
-    }
-    
     public static void TrainPerceptrons(ArffFileReader trainingReader,
     SingleLayerPerceptron[] perceptrons, NormalizationTypes normalizationType)
     {
-        if (normalizationType == NormalizationTypes.With0And1)
+        if (normalizationType.Equals(NormalizationTypes.With0And1))
         {
-            foreach (var document in trainingReader.Documents)
+            Parallel.For(0, perceptrons.Length, i =>
             {
-                for (int i = 0; i < perceptrons.Length; ++i)
-                {
+                foreach(var document in trainingReader.Documents)
                     perceptrons[i].TrainWithDocument(document,
-                        perceptrons[i].Topic.Equals(document.Topic) ? 1 : 0,
-                        normalizationType);
-                }
-            }
+                        (perceptrons[i].TopicEncoding == document.TopicEncoding) ? 1 : 0);
+            });
         }
-        else if(normalizationType == NormalizationTypes.With1AndNeg1)
+        else if(normalizationType.Equals(NormalizationTypes.With1AndNeg1))
         {
-            for (int i = 0; i < perceptrons.Length; ++i)
+            Parallel.For(0, perceptrons.Length, i =>
             {
-                foreach (var document in trainingReader.Documents)
-                {
+                foreach(var document in trainingReader.Documents)
                     perceptrons[i].TrainWithDocument(document,
-                        perceptrons[i].Topic.Equals(document.Topic) ? 1 : -1,
-                        normalizationType);
-                }
-            }
+                        (perceptrons[i].TopicEncoding == document.TopicEncoding) ? 1 : -1);
+            });
         }
     }
 
@@ -91,6 +40,36 @@ public static class PerceptronUtility
         }
     }
     
+    public static void DoStringEncodings(ArffFileReader trainingReader, Dictionary<string, int> topicEncodingDictionary,
+        ArffFileReader testingReader)
+    {
+        int ct = 1;
+        foreach (var topic in trainingReader.TopicList)
+        {
+            if (!topicEncodingDictionary.ContainsKey(topic))
+            {
+                topicEncodingDictionary.Add(topic, ct);
+                ct++;
+            }
+        }
+        foreach (var topic in testingReader.TopicList)
+        {
+            if (!topicEncodingDictionary.ContainsKey(topic))
+            {
+                topicEncodingDictionary.Add(topic, ct);
+                ct++;
+            }
+        }
+        
+        foreach (var document in trainingReader.Documents)
+        {
+            document.TopicEncoding = topicEncodingDictionary[document.Topic];
+        }
+        foreach (var document in testingReader.Documents)
+        {
+            document.TopicEncoding = topicEncodingDictionary[document.Topic];
+        }
+    }
     public static double ApplyActivationFunction(double sum, ActivationFunctions activationType, double threshold = 0.0, double alpha = 1.0)
     {
         switch (activationType)

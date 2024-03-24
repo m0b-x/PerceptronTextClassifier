@@ -17,6 +17,7 @@ public class SingleLayerPerceptron
     private double _treshold = 0.0;
     
     private string _topic;
+    private int _topicEncoding;
     
     public double Treshold
     {
@@ -29,14 +30,21 @@ public class SingleLayerPerceptron
         get { return _topic; }
         set { _topic = value; }
     }
+    public int TopicEncoding
+    {
+        get { return _topicEncoding; }
+        set { _topicEncoding = value; }
+    }
 
-    public SingleLayerPerceptron(int inputSize, double learningRate, string topicToLearn)
+
+    public SingleLayerPerceptron(int inputSize, double learningRate, string topicToLearn, int topicEncoding)
     {
         _learningRate = learningRate;
         _weights = new double[inputSize];
         InitializeWeights();
         _bias = 0;
         _topic = topicToLearn;
+        _topicEncoding = topicEncoding;
         _maxEpochs = GlobalSettings.MaxPerceptronEpochs;
     }
     //Initialize Weights Between -1/inputSize and 1/inputSize
@@ -52,11 +60,10 @@ public class SingleLayerPerceptron
     }
 
     //expectedOutcome should be either -1 or 1
-    public void TrainWithDocument(Document document, int expectedOutcome, NormalizationTypes normalization)
+    public void TrainWithDocument(Document document, int expectedOutcome)
     {
         bool outcomesMatch = false;
         int curentEpoch = 0;
-        
         //Stopping criterion =  outcomes Match
         while (!outcomesMatch && curentEpoch < _maxEpochs)
         {
@@ -64,11 +71,11 @@ public class SingleLayerPerceptron
 
             sum = ApplySummingFunction(document, sum);
 
-            double activationResult =
+            int activationResult =
                 ActivationFunctionsImpl.SignFunction(sum);
 
             //Update the weights if the presented output is not what we want
-            if (!activationResult.Equals(expectedOutcome))
+            if (activationResult != expectedOutcome)
             {
                 double differenceBetweenOutcomes = _learningRate* (expectedOutcome - activationResult);
                 for (int i = 0; i < _weights.Length; ++i)
@@ -97,8 +104,7 @@ public class SingleLayerPerceptron
         double activationResult =
             ActivationFunctionsImpl.SignFunction(sum);
         
-        //Compare encoding since string comparison is slower
-        bool isTopicMatch = _topic.Equals(document.Topic);
+        bool isTopicMatch = TopicEncoding == document.TopicEncoding;
 
         if (activationResult > 0)
         {

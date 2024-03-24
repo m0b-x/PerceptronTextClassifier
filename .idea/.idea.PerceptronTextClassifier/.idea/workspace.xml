@@ -8,17 +8,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa070ee2-2620-4fe2-998f-4ba719f5aff7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Global Classes/GlobalSettings.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PerceptronTextClassifier/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PerceptronTextClassifier/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/ArffFileReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/ArffFileReader.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Document.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Document.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Evaluator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Global Classes/GlobalEvaluator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/PerceptronUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/PerceptronUtility.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/SingleLayerPerceptron.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/SingleLayerPerceptron.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/ref/PerceptronTextClassifier.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/ref/PerceptronTextClassifier.dll" afterDir="false" />
@@ -30,7 +26,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Users/alexandruzamfir/Desktop/Proiecte/SLP_Classifier/PerceptronTextClassifier/PerceptronTextClassifier/ArffFileReader.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/alexandruzamfir/Desktop/Proiecte/SLP_Classifier/PerceptronTextClassifier/PerceptronTextClassifier/Document.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6944caef51964961b37f49507d2b53dfd82000/6f/f8619b87/NullReferenceException.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -46,26 +42,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Project.PerceptronTextClassifier.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Project.PerceptronTextClassifier.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/Users/alexandruzamfir/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache",
-      "/Users/alexandruzamfir/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache",
-      "/Users/alexandruzamfir/.local/share/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/Users/alexandruzamfir/Library/Application Support/JetBrains/Rider2023.3/resharper-host/DecompilerCache&quot;,
+      &quot;/Users/alexandruzamfir/Library/Application Support/JetBrains/Rider2023.3/resharper-host/SourcesCache&quot;,
+      &quot;/Users/alexandruzamfir/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="PerceptronTextClassifier" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />

@@ -12,56 +12,61 @@ class Program
         string workingDirectory = Environment.CurrentDirectory;
         string slnDirectory = Directory.GetParent(workingDirectory)!.Parent!.Parent!.FullName;
 
-        var trainingFilePath = Path.Combine(slnDirectory, "Data/MultiClass_Training_SVM_100.0.arff");
-        var testingFilePath = Path.Combine(slnDirectory, "Data/MultiClass_Testing_SVM_100.0.arff");
+        var trainingFilePath = Path.Combine(slnDirectory, "Data/MultiClass_Training_SVM_1309.0.arff");
+        var testingFilePath = Path.Combine(slnDirectory, "Data/MultiClass_Testing_SVM_1309.0.arff");
         
         ArffFileReader trainingReader =  new ArffFileReader(trainingFilePath);
         ArffFileReader testingReader =  new ArffFileReader(testingFilePath);
+
+        Dictionary<string, int> topicEncodingDictionary = new(trainingFilePath.Length + testingFilePath.Length);
         
-        var topicEncodings = PerceptronUtility.ComputeTopicEncoding(trainingReader.TopicList);
+        ///////////////////
+        //Encode the topics
+        ///////////////////
+        PerceptronUtility.DoStringEncodings(trainingReader, topicEncodingDictionary, testingReader);
         
-        foreach (var document in trainingReader.Documents)
-        {
-            document.TopicEncoding = topicEncodings[document.Topic];
-        }
+        Console.WriteLine("Topics Encoded");
         
         ///////////////////
         //Train Perceptrons
         ///////////////////
         SingleLayerPerceptron[] perceptrons =
-            new SingleLayerPerceptron[topicEncodings.Keys.Count];
+            new SingleLayerPerceptron[trainingReader.TopicList.Count];
 
         int perceptronCt = 0;
-        Dictionary<string, int> trainingDataIndexDictionary = new(topicEncodings.Keys.Count);
-        foreach (var topic in topicEncodings.Keys)
+        foreach (var topic in trainingReader.TopicList)
         {
             var perceptron = new SingleLayerPerceptron(
                 trainingReader.NumberOfAttributes,
                 learningRate: 0.1,
-                topic);
+                topic,
+                topicEncodingDictionary[topic]);
             perceptrons[perceptronCt] = perceptron;
             
-            trainingDataIndexDictionary[topic] = perceptronCt;
             perceptronCt++;
         }
+        Console.WriteLine($"Perceptrons were creeated at {stopwatch.Elapsed}.");
         
         //Training
         PerceptronUtility.TrainPerceptrons(
             trainingReader: trainingReader,
             perceptrons: perceptrons,
             normalizationType: GlobalSettings.NormalizationType);
+        Console.WriteLine($"Perceptrons were trained at {stopwatch.Elapsed}.");
         
         //Testing
         PerceptronUtility.TestPerceptrons(
             testingReader: testingReader,
             perceptrons: perceptrons,
             normalizationType: GlobalSettings.NormalizationType);
-        Console.WriteLine("Perceptrons tested.");
+        Console.WriteLine($"Perceptrons were tested at {stopwatch.Elapsed}.");
+        
+        //Stop stopwatch
+        stopwatch.Stop();
+        Console.WriteLine($"Stopwatch stopped at: {stopwatch.Elapsed}");
         
         //Print Metrics
         GlobalEvaluator.PrintEvaluationMetrics();
-        
-        stopwatch.Stop();
-        Console.WriteLine($"Stopwatch Time: {stopwatch.Elapsed}");
+        ;
     }
 }
