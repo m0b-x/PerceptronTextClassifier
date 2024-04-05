@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Text;
-
 namespace PerceptronTextClassifier;
 
 public class SingleLayerPerceptron
 {
-    //dynamic input size
-    private int _maxEpochs;
+    private Random RandomGenerator;
+    
+    private int _maxIterations;
     
     private double[] _weights;
     
@@ -14,15 +12,35 @@ public class SingleLayerPerceptron
     
     private double _learningRate;
     
-    private double _treshold = 0.0;
-    
     private string _topic;
     private int _topicEncoding;
-    
-    public double Treshold
+
+    private Evaluator _evaluator;
+
+    public int TP
     {
-        get { return _treshold; }
-        set { _treshold = value; }
+        get { return _evaluator.TruePositive; }
+        set { _evaluator.TruePositive = value; }
+    }
+    public int TN
+    {
+        get { return _evaluator.TrueNegative; }
+        set { _evaluator.TrueNegative = value; }
+    }
+    public int FP
+    {
+        get { return _evaluator.FalsePositive; }
+        set { _evaluator.FalsePositive = value; }
+    }
+    public int FN
+    {
+        get { return _evaluator.FalseNegative; }
+        set { _evaluator.FalseNegative = value; }
+    }
+
+    public Evaluator Evaluator
+    {
+        get { return _evaluator; }
     }
     
     public string Topic
@@ -41,31 +59,31 @@ public class SingleLayerPerceptron
     {
         _learningRate = learningRate;
         _weights = new double[inputSize];
-        InitializeWeights();
         _bias = 0;
         _topic = topicToLearn;
         _topicEncoding = topicEncoding;
-        _maxEpochs = GlobalSettings.MaxPerceptronEpochs;
+        _maxIterations = GlobalSettings.MaxPerceptronIterations;
+        _evaluator = new Evaluator();
+        RandomGenerator = new Random();
+        InitializeWeights();
     }
     //Initialize Weights Between -1/inputSize and 1/inputSize
     public void InitializeWeights()
     {
-        Random rand = new Random();
         double range = 1.0 / _weights.Length;
 
         for (int i = 0; i < _weights.Length; i++)
         {
-            _weights[i] = rand.NextDouble() * (2 * range) - range;
+            _weights[i] = RandomGenerator.NextDouble() * (2 * range) - range;
         }
     }
 
     //expectedOutcome should be either -1 or 1
     public void TrainWithDocument(Document document, int expectedOutcome)
     {
-        bool outcomesMatch = false;
-        int curentEpoch = 0;
+        int curentIteration = 0;
         //Stopping criterion =  outcomes Match
-        while (!outcomesMatch && curentEpoch < _maxEpochs)
+        while (curentIteration < _maxIterations)
         {
             double sum = _bias;
 
@@ -73,29 +91,28 @@ public class SingleLayerPerceptron
 
             int activationResult =
                 ActivationFunctionsImpl.SignFunction(sum);
-
+            
             //Update the weights if the presented output is not what we want
             if (activationResult != expectedOutcome)
             {
-                double differenceBetweenOutcomes = _learningRate* (expectedOutcome - activationResult);
+                double differenceBetweenOutcomes = _learningRate * (expectedOutcome - activationResult);
+                
                 for (int i = 0; i < _weights.Length; ++i)
                 {
                     //Original formula
-                    //_weights[i] = _weights[i] - _learningRate * (expectedOutcome - activationResult) * document.NormalisedAttributePresence[i];
+                    //_weights[i] = _weights[i] + _learningRate * (expectedOutcome - activationResult) * document.NormalisedAttributePresence[i];
                     
-                    _weights[i] = _weights[i] - differenceBetweenOutcomes * document.NormalisedAttributePresence[i];
+                    _weights[i] += differenceBetweenOutcomes * document.NormalisedAttributePresence[i];
                 }
             }
             else
             {
-                outcomesMatch = true;
                 break;
             }
-
-            curentEpoch++;
+            curentIteration++;
         }
     }
-    public void TestWithDocument(Document document)
+    public double TestWithDocument(Document document)
     {
         double sum = _bias;
 
@@ -105,18 +122,17 @@ public class SingleLayerPerceptron
             ActivationFunctionsImpl.SignFunction(sum);
         
         bool isTopicMatch = TopicEncoding == document.TopicEncoding;
-
-        if (activationResult > 0)
+        if (activationResult >= 0)
         {
             //Correctly predicts that the documentis part of class
             if (isTopicMatch)
             {
-                GlobalEvaluator.TruePositive++;
+                _evaluator.TruePositive++;
             }
             //Incorrectly predicts that the documentis part of class (it is not)
             else
             {
-                GlobalEvaluator.FalsePositive++;
+                _evaluator.FalsePositive++;
             }
         }
         else
@@ -124,14 +140,16 @@ public class SingleLayerPerceptron
             // Incorrectly predicts that the document is part of class (it is)
             if (isTopicMatch)
             {
-                GlobalEvaluator.FalseNegative++;
+                _evaluator.FalseNegative++;
             }
             // Correctly predicts that the document is not part of class
             else
             {
-                GlobalEvaluator.TrueNegative++;
+                _evaluator.TrueNegative++;
             }
         }
+
+        return sum;
     }
 
     private double ApplySummingFunction(Document document, double sum)
@@ -141,5 +159,11 @@ public class SingleLayerPerceptron
             sum += _weights[i] * document.NormalisedAttributePresence[i];
         }
         return sum;
+    }
+
+    public void PrintConfusionMatrix()
+    {
+        Console.WriteLine(
+            $"Confusion Matrix for perceptron {Topic}\nTP:{TP}, FN:{FN},\nFP:{FP}, TN:{TN}\n");
     }
 }

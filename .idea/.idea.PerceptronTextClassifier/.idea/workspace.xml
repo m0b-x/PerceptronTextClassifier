@@ -8,13 +8,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa070ee2-2620-4fe2-998f-4ba719f5aff7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/Evaluator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.PerceptronTextClassifier/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PerceptronTextClassifier/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Document.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Document.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Global Classes/GlobalEvaluator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Global Classes/GlobalEvaluator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Global Classes/GlobalSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Global Classes/GlobalSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/ActivationFunctionsImpl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/ActivationFunctionsImpl.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/NormalizationTypes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/NormalizationTypes.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/PerceptronUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/PerceptronUtility.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/SingleLayerPerceptron.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Perceptron/SingleLayerPerceptron.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/PerceptronTextClassifier.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/ref/PerceptronTextClassifier.dll" beforeDir="false" afterPath="$PROJECT_DIR$/PerceptronTextClassifier/obj/Debug/net8.0/ref/PerceptronTextClassifier.dll" afterDir="false" />
@@ -107,6 +113,22 @@
       <workItem from="1711180316154" duration="3360000" />
       <workItem from="1711183966606" duration="1046000" />
       <workItem from="1711281372197" duration="4621000" />
+      <workItem from="1711291062660" duration="1483000" />
+      <workItem from="1711354222431" duration="117000" />
+      <workItem from="1711355678624" duration="65000" />
+      <workItem from="1711640741615" duration="168000" />
+      <workItem from="1711643179502" duration="211000" />
+      <workItem from="1711643881340" duration="50000" />
+      <workItem from="1711646017026" duration="8566000" />
+      <workItem from="1711697242760" duration="10094000" />
+      <workItem from="1711720462235" duration="3458000" />
+      <workItem from="1711723940613" duration="4772000" />
+      <workItem from="1711728772898" duration="1065000" />
+      <workItem from="1711729843019" duration="980000" />
+      <workItem from="1711781782631" duration="1749000" />
+      <workItem from="1711823353368" duration="329000" />
+      <workItem from="1711890372456" duration="626000" />
+      <workItem from="1711980893582" duration="38000" />
     </task>
     <task id="LOCAL-00001" summary="Added Normalization, Stop Condition, Enums, summing function by normalization, presence layer to classes">
       <option name="closed" value="true" />
@@ -124,7 +146,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711184926994</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added Paralelisation">
+      <option name="closed" value="true" />
+      <created>1711291601638</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1711291601638</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,6 +176,7 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Added Normalization, Stop Condition, Enums, summing function by normalization, presence layer to classes" />
     <MESSAGE value="Made first tests, fixed bugs&#10;Added evaluator pseudocode, will do evaluator code in next commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made first tests, fixed bugs&#10;Added evaluator pseudocode, will do evaluator code in next commit" />
+    <MESSAGE value="Added Paralelisation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Paralelisation" />
   </component>
 </project>

@@ -34,8 +34,6 @@ namespace PerceptronTextClassifier
                     _normalisedAttributePresence[i] = -1;
                 }
             }
-            // no need to to something for 1 and 0 normalisation
-            // since int array values are initialised to 0 by default 
             
             foreach (var pair in _indexFrequencyPairs)
             {

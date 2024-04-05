@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics;
+using PerceptronTextClassifier.Perceptron;
 
 namespace PerceptronTextClassifier;
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
         Stopwatch stopwatch = new();
         stopwatch.Start();
@@ -18,23 +19,31 @@ class Program
         ArffFileReader trainingReader =  new ArffFileReader(trainingFilePath);
         ArffFileReader testingReader =  new ArffFileReader(testingFilePath);
 
-        Dictionary<string, int> topicEncodingDictionary = new(trainingFilePath.Length + testingFilePath.Length);
-        
         ///////////////////
         //Encode the topics
         ///////////////////
+        
+        Dictionary<string, int> topicEncodingDictionary = new(trainingFilePath.Length + testingFilePath.Length);
+        
         PerceptronUtility.DoStringEncodings(trainingReader, topicEncodingDictionary, testingReader);
         
-        Console.WriteLine("Topics Encoded");
+        Console.WriteLine($"\n\nTiming Metrics:\n\nTopics were encoded at {stopwatch.Elapsed}.");
+
+        ////////////////////
+        //Create Perceptrons
+        ////////////////////
         
-        ///////////////////
-        //Train Perceptrons
-        ///////////////////
+        HashSet<string> topics = new();
+        foreach (var document in trainingReader.Documents)
+        {
+            topics.Add(document.Topic);
+        }
+        
         SingleLayerPerceptron[] perceptrons =
-            new SingleLayerPerceptron[trainingReader.TopicList.Count];
+            new SingleLayerPerceptron[topics.Count];
 
         int perceptronCt = 0;
-        foreach (var topic in trainingReader.TopicList)
+        foreach (var topic in topics)
         {
             var perceptron = new SingleLayerPerceptron(
                 trainingReader.NumberOfAttributes,
@@ -45,28 +54,40 @@ class Program
             
             perceptronCt++;
         }
-        Console.WriteLine($"Perceptrons were creeated at {stopwatch.Elapsed}.");
+        Console.WriteLine($"Perceptrons were created at {stopwatch.Elapsed}.");
         
-        //Training
+        ///////////////////
+        //Train Perceptrons
+        ///////////////////
+        
         PerceptronUtility.TrainPerceptrons(
             trainingReader: trainingReader,
-            perceptrons: perceptrons,
-            normalizationType: GlobalSettings.NormalizationType);
+            perceptrons: perceptrons);
         Console.WriteLine($"Perceptrons were trained at {stopwatch.Elapsed}.");
         
-        //Testing
+        //////////////////
+        //Test Perceptrons
+        //////////////////
+
         PerceptronUtility.TestPerceptrons(
             testingReader: testingReader,
-            perceptrons: perceptrons,
-            normalizationType: GlobalSettings.NormalizationType);
+            perceptrons: perceptrons);
         Console.WriteLine($"Perceptrons were tested at {stopwatch.Elapsed}.");
         
         //Stop stopwatch
         stopwatch.Stop();
-        Console.WriteLine($"Stopwatch stopped at: {stopwatch.Elapsed}");
+        Console.WriteLine($"Stopwatch stopped at: {stopwatch.Elapsed}\n");
         
+        //////////////////
         //Print Metrics
-        GlobalEvaluator.PrintEvaluationMetrics();
-        ;
+        //////////////////
+
+        for (int i = 0; i < perceptrons.Length; i++)
+        {
+            perceptrons[i].PrintConfusionMatrix();
+        }
+        
+        PerceptronUtility.PrintMetrics2(perceptrons);
+
     }
 }

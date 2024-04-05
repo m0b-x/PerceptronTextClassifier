@@ -1,5 +1,3 @@
-using System;
-
 namespace PerceptronTextClassifier;
 
 public static class GlobalEvaluator
@@ -8,54 +6,56 @@ public static class GlobalEvaluator
     public static int TrueNegative { get; set; }
     public static int FalsePositive { get; set; }
     public static int FalseNegative { get; set; }
-    public static int NumberOfClasses { get; set; }
 
-    public static void InitialiseMetrics(int numberOfClases)
+    public static void ResetMetrics()
     {
         TruePositive = 0;
         TrueNegative = 0;
         FalsePositive = 0;
         FalseNegative = 0;
-        NumberOfClasses = numberOfClases;
     }
 
     public static double ComputeAccuracy()
     {
         int total = TruePositive + TrueNegative + FalsePositive + FalseNegative;
         if (total == 0)
-            throw new InvalidOperationException("[Accuracy-Error]: All variables are 0, cannot compute division.");
-        
-        double accuracy = (double)(TruePositive + TrueNegative) / total;
+            return 0;
+        //throw new InvalidOperationException("[Accuracy-Error]: All variables are 0, cannot compute division.");
+
+        double accuracy = (double) (TruePositive + TrueNegative) / total;
         return accuracy;
     }
 
-    public static  double ComputeRecall()
+    public static double ComputeRecall()
     {
         int actualPositive = TruePositive + FalseNegative;
         if (actualPositive == 0)
-            throw new InvalidOperationException("[Recall-Error]: TruePos + FalseNeg is 0, cannot compute division.");
-        
-        double recall = (double)TruePositive / actualPositive;
+            return 0;
+        //throw new InvalidOperationException("[Recall-Error]: TruePos + FalseNeg is 0, cannot compute division.");
+
+        double recall = (double) TruePositive / actualPositive;
         return recall;
     }
 
-    public static  double ComputeSpecificity()
+    public static double ComputeSpecificity()
     {
         int actualNegative = TrueNegative + FalsePositive;
         if (actualNegative == 0)
-            throw new InvalidOperationException("[Specificity-Error]: TrueNeg + FalsePoz is 0, cannot compute division.");
-        
-        double specificity = (double)TrueNegative / actualNegative;
+            return 0;
+        //throw new InvalidOperationException("[Specificity-Error]: TrueNeg + FalsePoz is 0, cannot compute division.");
+
+        double specificity = (double) TrueNegative / actualNegative;
         return specificity;
     }
 
-    public static  double ComputePrecision()
+    public static double ComputePrecision()
     {
         int predictedPositive = TruePositive + FalsePositive;
         if (predictedPositive == 0)
-            throw new InvalidOperationException("[Precision-Error]: TruePos + FalsePos is 0, cannot compute division.");
-        
-        double precision = (double)TruePositive / predictedPositive;
+            return 0;
+        //throw new InvalidOperationException("[Precision-Error]: TruePos + FalsePos is 0, cannot compute division.");
+
+        double precision = (double) TruePositive / predictedPositive;
         return precision;
     }
 
@@ -65,6 +65,7 @@ public static class GlobalEvaluator
         var precision = ComputePrecision();
         var recall = ComputeRecall();
         var specificity = ComputeSpecificity();
-        Console.WriteLine($"Evaluation Metrics:\n Accuracy:\t{accuracy}\n Precision:\t{precision}\n Recall:\t{recall}\n Specificity:\t{specificity}\n");
+        Console.WriteLine(
+            $"Evaluation Metrics:\n Accuracy:\t{accuracy}\n Precision:\t{precision}\n Recall:\t{recall}\n Specificity:\t{specificity}\n");
     }
 }

@@ -1,43 +1,67 @@
-using System.Collections;
-using System.Text;
-
-namespace PerceptronTextClassifier;
+namespace PerceptronTextClassifier.Perceptron;
 
 public static class PerceptronUtility
 {
     public static void TrainPerceptrons(ArffFileReader trainingReader,
-    SingleLayerPerceptron[] perceptrons, NormalizationTypes normalizationType)
+    SingleLayerPerceptron[] perceptrons)
     {
-        if (normalizationType.Equals(NormalizationTypes.With0And1))
+        Parallel.For(0, perceptrons.Length, i =>
         {
-            Parallel.For(0, perceptrons.Length, i =>
-            {
-                foreach(var document in trainingReader.Documents)
-                    perceptrons[i].TrainWithDocument(document,
-                        (perceptrons[i].TopicEncoding == document.TopicEncoding) ? 1 : 0);
-            });
-        }
-        else if(normalizationType.Equals(NormalizationTypes.With1AndNeg1))
-        {
-            Parallel.For(0, perceptrons.Length, i =>
-            {
-                foreach(var document in trainingReader.Documents)
-                    perceptrons[i].TrainWithDocument(document,
-                        (perceptrons[i].TopicEncoding == document.TopicEncoding) ? 1 : -1);
-            });
-        }
+            foreach (var document in trainingReader.Documents)
+                perceptrons[i].TrainWithDocument(document,
+                    (perceptrons[i].TopicEncoding == document.TopicEncoding) ? 1 : -1);
+        });
     }
 
     public static void TestPerceptrons(ArffFileReader testingReader,
-        SingleLayerPerceptron[] perceptrons, NormalizationTypes normalizationType)
+        SingleLayerPerceptron[] perceptrons)
     {
-        for (int i = 0; i < perceptrons.Length; ++i)
+        Parallel.For(0, perceptrons.Length, i =>
         {
             foreach (var document in testingReader.Documents)
             {
                 perceptrons[i].TestWithDocument(document);
             }
+        });
+    }
+    
+    public static void PrintMetrics2(SingleLayerPerceptron[] perceptrons)
+    {
+        int tp = 0, tn = 0, fp = 0, fn = 0;
+        for (int i = 0; i < perceptrons.Length; i++)
+        {
+            tp += perceptrons[i].TP;
+            tn += perceptrons[i].TN;
+            fp += perceptrons[i].FP;
+            fn += perceptrons[i].FN;
         }
+        // Compute metrics
+        double accuracy = (tp + tn) / (double)(tp + tn + fp + fn);
+        double precision = tp / (double)(tp + fp);
+        double recall = tp / (double)(tp + fn);
+        double specificity = tn / (double)(tn + fp);
+    
+        // Print metrics
+        Console.WriteLine($"Evaluation Metrics:\n\nAccuracy:\t{accuracy}\nPrecision:\t{precision}\nRecall:\t\t{recall}\nSpecificity:\t{specificity}\n\n");
+    }
+    public static void PrintMetrics(SingleLayerPerceptron[] perceptrons)
+    {
+        double acc = 0.0, pr = 0.0, rec = 0.0, spec = 0.0;
+        for (int i = 0; i < perceptrons.Length; i++)
+        {
+            acc += perceptrons[i].Evaluator.ComputeAccuracy();
+            pr += perceptrons[i].Evaluator.ComputePrecision();
+            rec += perceptrons[i].Evaluator.ComputeRecall();
+            spec += perceptrons[i].Evaluator.ComputeAccuracy();
+        }
+                               
+        // Compute metrics
+        double accuracy = acc / perceptrons.Length;
+        double precision = pr / perceptrons.Length;
+        double recall = rec / perceptrons.Length;
+        double specificity = spec / perceptrons.Length;
+        // Print metrics
+        Console.WriteLine($"Evaluation Metrics:\n\nAccuracy:\t{accuracy}\nPrecision:\t{precision}\nRecall:\t\t{recall}\nSpecificity:\t{specificity}\n\n");
     }
     
     public static void DoStringEncodings(ArffFileReader trainingReader, Dictionary<string, int> topicEncodingDictionary,
@@ -70,24 +94,5 @@ public static class PerceptronUtility
             document.TopicEncoding = topicEncodingDictionary[document.Topic];
         }
     }
-    public static double ApplyActivationFunction(double sum, ActivationFunctions activationType, double threshold = 0.0, double alpha = 1.0)
-    {
-        switch (activationType)
-        {
-            case ActivationFunctions.StepFunction:
-                return ActivationFunctionsImpl.StepFunction(sum, threshold);
-            case ActivationFunctions.SignFunction:
-                return ActivationFunctionsImpl.SignFunction(sum);
-            case ActivationFunctions.Sigmoid:
-                return ActivationFunctionsImpl.Sigmoid(sum);
-            case ActivationFunctions.Tanh:
-                return ActivationFunctionsImpl.Tanh(sum);
-            case ActivationFunctions.ReLU:
-                return ActivationFunctionsImpl.ReLU(sum);
-            case ActivationFunctions.ELU:
-                return ActivationFunctionsImpl.ELU(sum, alpha);
-            default:
-                throw new ArgumentException("Invalid activation function type.");
-        }
-    }
+    
 }
