@@ -59,7 +59,7 @@ public class SingleLayerPerceptron
     {
         _learningRate = learningRate;
         _weights = new double[inputSize];
-        _bias = 0;
+        _bias = GlobalSettings.DefaultNeuronBias;
         _topic = topicToLearn;
         _topicEncoding = topicEncoding;
         _maxIterations = GlobalSettings.MaxPerceptronIterations;
@@ -85,7 +85,7 @@ public class SingleLayerPerceptron
         //Stopping criterion =  outcomes Match
         while (curentIteration < _maxIterations)
         {
-            double sum = _bias;
+            double sum = 0.0;
 
             sum = ApplySummingFunction(document, sum);
 
@@ -95,15 +95,16 @@ public class SingleLayerPerceptron
             //Update the weights if the presented output is not what we want
             if (activationResult != expectedOutcome)
             {
-                double differenceBetweenOutcomes = _learningRate * (expectedOutcome - activationResult);
+                double error = _learningRate * (expectedOutcome - activationResult);
                 
                 for (int i = 0; i < _weights.Length; ++i)
                 {
                     //Original formula
                     //_weights[i] = _weights[i] + _learningRate * (expectedOutcome - activationResult) * document.NormalisedAttributePresence[i];
                     
-                    _weights[i] += differenceBetweenOutcomes * document.NormalisedAttributePresence[i];
+                    _weights[i] += error * document.NormalisedAttributePresence[i];
                 }
+                _bias += error;
             }
             else
             {
@@ -114,7 +115,7 @@ public class SingleLayerPerceptron
     }
     public double TestWithDocument(Document document)
     {
-        double sum = _bias;
+        double sum = 0.0;
 
         sum = ApplySummingFunction(document, sum);
 
@@ -158,6 +159,7 @@ public class SingleLayerPerceptron
         {
             sum += _weights[i] * document.NormalisedAttributePresence[i];
         }
+        sum += _bias;
         return sum;
     }
 
